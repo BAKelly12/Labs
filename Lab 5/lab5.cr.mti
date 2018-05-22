@@ -1,0 +1,31 @@
+P:/microprocessor/lab5/lab5 {1 {vcom -work work -2002 -explicit -vopt -stats=none {P:\microprocessor\lab5\lab5}
+QuestaSim-64 vcom 10.5e Compiler 2017.06 Jun 16 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity RAM
+-- Compiling architecture staticRAM of RAM
+-- Compiling entity Registers
+-- Compiling architecture remember of Registers
+-- Compiling entity bitstorage
+-- Compiling architecture memlike of bitstorage
+-- Compiling entity register8
+-- Compiling architecture memmy of register8
+-- Compiling entity register32
+-- Compiling architecture biggermem of register32
+
+} {} {}} P:/microprocessor/lab5/tMemory.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none P:/microprocessor/lab5/tMemory.vhd
+QuestaSim-64 vcom 10.5e Compiler 2017.06 Jun 16 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity tMemory_vhd
+-- Compiling architecture behavior of tMemory_vhd
+
+} {} {}}
