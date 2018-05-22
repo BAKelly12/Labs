@@ -5,15 +5,13 @@
 -- Class     : Microprocessor Designs
 -- Instructor: Ken Rabold
 -- Purpose   : 
---             Design and implement a Memory module and Register Bank
+--             Design and implement a Memory and Register Bank
 --
 -- Notes     : 
 -- This excercise is developed using Questa Sim 
 			
 -- Developer	Date		Activities
 -- DD		5/14/18 	Download and modify Memory.vhd
--- BK           5/14/18         Completed writing code
--- BK           5/18/18         Full compile of components
 
 
 
@@ -52,7 +50,7 @@ begin
     end if;
 
     IF falling_edge(Clock) THEN
-	
+	-- Add code to write data to RAM
 	IF (WE = '1') THEN -- ONLY write data to i_ram on falling edge and write enable = 1.	
 		IF (to_integer(unsigned(Address)) <= 127) THEN
 			i_ram (to_integer(unsigned(Address))) <= DataIn;
@@ -70,7 +68,7 @@ begin
 
 
 
-	
+	-- DMEM Section
 	
 	
 
@@ -106,10 +104,9 @@ architecture remember of Registers is
 	end component;
 	
 	--INPUT AND OUTPUT FOR ZERO REGISTER--
-	signal zeri: STD_LOGIC_VECTOR(31 downto 0);
-        signal zerou: STD_LOGIC_VECTOR(31 downto 0);
-	signal zer: STD_LOGIC_VECTOR(31 downto 0):=X"00000000";
-
+	signal zeri: STD_LOGIC_VECTOR(31 downto 0):= X"00000000";
+    signal zerou: STD_LOGIC_VECTOR(31 downto 0);
+	
 	--------INPUT FOR A0 - A7--------
 	signal a0o: STD_LOGIC_VECTOR(31 downto 0);
 	signal a1o: STD_LOGIC_VECTOR(31 downto 0);
@@ -129,12 +126,12 @@ architecture remember of Registers is
 	signal a5i: STD_LOGIC_VECTOR(31 downto 0);
 	signal a6i: STD_LOGIC_VECTOR(31 downto 0);
 	signal a7i: STD_LOGIC_VECTOR(31 downto 0);
-	signal highz: STD_LOGIC_VECTOR(31 DOWNTO 0):= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
+	signal highz: STD_LOGIC_VECTOR(31 DOWNTO 0):= "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
 	
 	begin
 	
 	---DEMUX FOR CHOOSING REGISTER TO WRITE---
-	zeri <= zer      when WriteCmd&writereg="100000";
+	zer <= zeri      when WriteCmd&writereg="100000";
 	a0i <= writeData when WriteCmd&writereg="100001";
 	a1i <= writeData when WriteCmd&writereg="100010";
 	a2i <= writeData when WriteCmd&writereg="100011";
@@ -148,8 +145,8 @@ architecture remember of Registers is
 	
 	---MUX FOR CHOOSING OUTPUT REGISTER 1---
 	with ReadReg1 select
-		            ReadData1 <= zerou when "00000",
-				           a0o when "00001",
+		ReadData1 <= zerou when "00000",
+				       a0o when "00001",
 					   a1o when "00010",
 					   a2o when "00011",
 					   a3o when "00100",
@@ -157,15 +154,15 @@ architecture remember of Registers is
 					   a5o when "00110",
 					   a6o when "00111",
 					   a7o when "01000",
-	                                 highz when others;
+	                 highz when others;
 	
 	
 	
 	
 	---MuX FOR CHOOSING OUTPUT REGISTER 2---
 		with ReadReg2 select
-		            ReadData2 <= zerou when "00000",
-				           a0o when "00001",
+		ReadData2 <= zerou when "00000",
+				       a0o when "00001",
 					   a1o when "00010",
 					   a2o when "00011",
 					   a3o when "00100",
@@ -173,22 +170,22 @@ architecture remember of Registers is
 					   a5o when "00110",
 					   a6o when "00111",
 					   a7o when "01000",
-	                                 highz when others;
+	                 highz when others;
 	
 	
 	
 --out: active low
 --in: active high
-------------------------        datin oe32 oe16 oe8      we32    we16  we8   datout
-       x0: register32  PORT MAP(zeri, '0', '1', '1', 'WriteCmd', '0',  '0', zerou);
-	a0: register32  PORT MAP(a0i, '0', '1', '1', 'WriteCmd', '0',  '0', a0o);
-	a1: register32  PORT MAP(a1i, '0', '1', '1', 'WriteCmd', '0',  '0', a1o);
-	a2: register32  PORT MAP(a2i, '0', '1', '1', 'WriteCmd', '0',  '0', a2o);
-	a3: register32  PORT MAP(a3i, '0', '1', '1', 'WriteCmd', '0',  '0', a3o);
-	a4: register32  PORT MAP(a4i, '0', '1', '1', 'WriteCmd', '0',  '0', a4o);
-	a5: register32  PORT MAP(a5i, '0', '1', '1', 'WriteCmd', '0',  '0', a5o);
-	a6: register32  PORT MAP(a6i, '0', '1', '1', 'WriteCmd', '0',  '0', a6o);
-	a7: register32  PORT MAP(a7i, '0', '1', '1', 'WriteCmd', '0',  '0', a7o);
+------------------------datin  oe32 oe16 oe8 we32  we16  we8 datout
+    x0: regbank PORT MAP(zer, '0', '1', '1', '1', '0',  '0', zerou);
+	a0: regbank PORT MAP(a0i, '0', '1', '1', '1', '0',  '0', a0o);
+	a1: regbank PORT MAP(a1i, '0', '1', '1', '1', '0',  '0', a1o);
+	a2: regbank PORT MAP(a2i, '0', '1', '1', '1', '0',  '0', a2o);
+	a3: regbank PORT MAP(a3i, '0', '1', '1', '1', '0',  '0', a3o);
+	a4: regbank PORT MAP(a4i, '0', '1', '1', '1', '0',  '0', a4o);
+	a5: regbank PORT MAP(a5i, '0', '1', '1', '1', '0',  '0', a5o);
+	a6: regbank PORT MAP(a6i, '0', '1', '1', '1', '0',  '0', a6o);
+	a7: regbank PORT MAP(a7i, '0', '1', '1', '1', '0',  '0', a7o);
 	
 
 end remember;
@@ -325,3 +322,4 @@ end architecture biggermem;
 --------
 
 -----------------
+
