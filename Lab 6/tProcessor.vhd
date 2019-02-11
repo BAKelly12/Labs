@@ -1,9 +1,22 @@
 
---------------------------------------------------------------------------------
+-- Developer  : Don Dang, Brigid Kelly
+-- Project    : Lab 6
+-- ProjectName: Single Cycle Processor
+-- Filename   : tProcessor.vhd
+-- Date       : 5/30/18
+-- Class      : Microprocessor Designs
+-- Instructor : Ken Rabold
+-- Purpose    : 
+--             Creating the Single Cycle Processor
 --
--- Test Bench for LAB #6
---
---------------------------------------------------------------------------------
+-- Notes      : 
+-- This excercise is developed using Questa Sim 
+-- tProcessor.vhd will be used as a testbench for testing the Single Cycle Processor design
+			
+-- Developer	Date		Activities
+-- DD		5/30/18 	Download lab 6 from Team DangKelly from Github
+
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.all;
@@ -12,6 +25,8 @@ USE ieee.numeric_std.ALL;
 ENTITY tProcessor_vhd IS
 END tProcessor_vhd;
 
+
+---UNIT TESTS MUST STILL BE COMPLETED ---- BRi
 ARCHITECTURE behavior OF tProcessor_vhd IS 
 
 	-- Component Declaration for the Unit Under Test (UUT)
